@@ -8,10 +8,8 @@ module HerokuSecrets
   extend self
 
   def vars
-    Rails.application.secrets.map { |key, value|
-      key = "_SECRET_#{key}".upcase
-
-      "#{key}=#{Shellwords.escape(value)}"
-    }.join(" ")
+    Rails.application.secrets.map do |key, value|
+      "#{key.upcase}=#{Shellwords.escape(value)}"
+    end.join(" ")
   end
 end
